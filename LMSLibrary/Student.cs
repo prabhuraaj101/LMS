@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,9 +24,7 @@ public class Student
     {
         List<Student> students = new();
 
-        string connectionString = "Data Source=DESKTOP-AAR2G77\\SQLEXPRESS;Initial Catalog=lmsDB;Integrated Security=True";
-
-        using (SqlConnection connection = new(connectionString))
+        using (SqlConnection connection = DBConnection.GetConnection())
         {
             connection.Open();
 
@@ -47,5 +46,32 @@ public class Student
             }
         }
         return students;
+    }
+
+    public static Student GetStudentFromDB(string studentId)
+    {
+        Student student = null;
+
+        using (SqlConnection connection = DBConnection.GetConnection())
+        {
+            connection.Open();
+
+            string query = "SELECT * FROM Students WHERE StudentId = @StudentId";
+            using SqlCommand command = new(query, connection);
+            command.Parameters.AddWithValue("@StudentId", studentId);
+            using SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                student = new Student
+                {
+                    Id = reader.GetString(0),
+                    FirstName = reader.GetString(1),
+                    LastName = reader.GetString(2),
+                    Department = reader.GetString(3),
+                    Year = reader.GetInt32(4)
+                };
+            }
+        }
+        return student;
     }
 }

@@ -21,7 +21,7 @@ public class Admin
 
     public static bool AuthenticateLogin(string userName, string password)
     {
-        using SqlConnection connection = new("Data Source=DESKTOP-AAR2G77\\SQLEXPRESS;Initial Catalog=lmsDB;Integrated Security=True");
+        using SqlConnection connection = DBConnection.GetConnection();
         connection.Open();
 
         using SqlCommand command = new("SELECT COUNT(*) FROM Admins WHERE UserName = @UserName AND Password = @Password", connection);

@@ -28,23 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             tabControl1 = new System.Windows.Forms.TabControl();
             tabPage1 = new System.Windows.Forms.TabPage();
             groupBox3 = new System.Windows.Forms.GroupBox();
+            DashboardClearButton = new System.Windows.Forms.Button();
             label3 = new System.Windows.Forms.Label();
-            textBox1 = new System.Windows.Forms.TextBox();
+            LendBookButton = new System.Windows.Forms.Button();
+            StudentIdTextBox = new System.Windows.Forms.TextBox();
             label1 = new System.Windows.Forms.Label();
             BookIdTextBox = new System.Windows.Forms.TextBox();
             DataGridViewBorrowedBooks = new System.Windows.Forms.DataGridView();
             groupBox2 = new System.Windows.Forms.GroupBox();
-            label10 = new System.Windows.Forms.Label();
+            StudentYearLabel = new System.Windows.Forms.Label();
             label11 = new System.Windows.Forms.Label();
-            label4 = new System.Windows.Forms.Label();
-            label5 = new System.Windows.Forms.Label();
-            label9 = new System.Windows.Forms.Label();
+            StudentFirstNameLabel = new System.Windows.Forms.Label();
+            StudentDepartmentLabel = new System.Windows.Forms.Label();
+            StudentLastNameLabel = new System.Windows.Forms.Label();
             label12 = new System.Windows.Forms.Label();
             label13 = new System.Windows.Forms.Label();
             label14 = new System.Windows.Forms.Label();
@@ -57,19 +58,20 @@
             label7 = new System.Windows.Forms.Label();
             label6 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
-            tabPage2 = new System.Windows.Forms.TabPage();
-            DataGridViewBooks = new System.Windows.Forms.DataGridView();
             tabPage3 = new System.Windows.Forms.TabPage();
+            DataGridViewBooks = new System.Windows.Forms.DataGridView();
+            tabPage4 = new System.Windows.Forms.TabPage();
             DataGridViewStudents = new System.Windows.Forms.DataGridView();
+            tabPage2 = new System.Windows.Forms.TabPage();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridViewBorrowedBooks).BeginInit();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
-            tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)DataGridViewBooks).BeginInit();
             tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)DataGridViewBooks).BeginInit();
+            tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridViewStudents).BeginInit();
             SuspendLayout();
             // 
@@ -78,11 +80,12 @@
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
+            tabControl1.Controls.Add(tabPage4);
             tabControl1.Font = new System.Drawing.Font("Lucida Console", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             tabControl1.Location = new System.Drawing.Point(7, 13);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new System.Drawing.Size(1363, 628);
+            tabControl1.Size = new System.Drawing.Size(1343, 678);
             tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -94,44 +97,66 @@
             tabPage1.Location = new System.Drawing.Point(4, 27);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            tabPage1.Size = new System.Drawing.Size(1355, 597);
+            tabPage1.Size = new System.Drawing.Size(1335, 647);
             tabPage1.TabIndex = 0;
-            tabPage1.Text = "Dashboard";
+            tabPage1.Text = "Lend";
             tabPage1.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
+            groupBox3.Controls.Add(DashboardClearButton);
             groupBox3.Controls.Add(label3);
-            groupBox3.Controls.Add(textBox1);
+            groupBox3.Controls.Add(LendBookButton);
+            groupBox3.Controls.Add(StudentIdTextBox);
             groupBox3.Controls.Add(label1);
             groupBox3.Controls.Add(BookIdTextBox);
-            groupBox3.Location = new System.Drawing.Point(1, 42);
+            groupBox3.Location = new System.Drawing.Point(1, 15);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new System.Drawing.Size(397, 119);
+            groupBox3.Size = new System.Drawing.Size(397, 216);
             groupBox3.TabIndex = 6;
             groupBox3.TabStop = false;
             groupBox3.Text = "ID";
             // 
+            // DashboardClearButton
+            // 
+            DashboardClearButton.Location = new System.Drawing.Point(208, 137);
+            DashboardClearButton.Name = "DashboardClearButton";
+            DashboardClearButton.Size = new System.Drawing.Size(94, 29);
+            DashboardClearButton.TabIndex = 9;
+            DashboardClearButton.Text = "Clear";
+            DashboardClearButton.UseVisualStyleBackColor = true;
+            DashboardClearButton.Click += DashboardClearButton_Click;
+            // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(88, 72);
+            label3.Location = new System.Drawing.Point(94, 91);
             label3.Name = "label3";
             label3.Size = new System.Drawing.Size(88, 17);
             label3.TabIndex = 2;
             label3.Text = "Student:";
             // 
-            // textBox1
+            // LendBookButton
             // 
-            textBox1.Location = new System.Drawing.Point(182, 65);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new System.Drawing.Size(116, 24);
-            textBox1.TabIndex = 3;
+            LendBookButton.Location = new System.Drawing.Point(108, 137);
+            LendBookButton.Name = "LendBookButton";
+            LendBookButton.Size = new System.Drawing.Size(94, 29);
+            LendBookButton.TabIndex = 7;
+            LendBookButton.Text = "Lend";
+            LendBookButton.UseVisualStyleBackColor = true;
+            LendBookButton.Click += LendBookButton_Click;
+            // 
+            // StudentIdTextBox
+            // 
+            StudentIdTextBox.Location = new System.Drawing.Point(195, 86);
+            StudentIdTextBox.Name = "StudentIdTextBox";
+            StudentIdTextBox.Size = new System.Drawing.Size(116, 24);
+            StudentIdTextBox.TabIndex = 3;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(88, 34);
+            label1.Location = new System.Drawing.Point(94, 53);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(58, 17);
             label1.TabIndex = 0;
@@ -139,56 +164,50 @@
             // 
             // BookIdTextBox
             // 
-            BookIdTextBox.Location = new System.Drawing.Point(182, 27);
+            BookIdTextBox.Location = new System.Drawing.Point(195, 46);
             BookIdTextBox.Name = "BookIdTextBox";
             BookIdTextBox.Size = new System.Drawing.Size(116, 24);
             BookIdTextBox.TabIndex = 1;
             // 
             // DataGridViewBorrowedBooks
             // 
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            DataGridViewBorrowedBooks.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             DataGridViewBorrowedBooks.BackgroundColor = System.Drawing.SystemColors.Control;
             DataGridViewBorrowedBooks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Lucida Console", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            DataGridViewBorrowedBooks.DefaultCellStyle = dataGridViewCellStyle1;
-            DataGridViewBorrowedBooks.Location = new System.Drawing.Point(404, 15);
+            DataGridViewBorrowedBooks.Location = new System.Drawing.Point(403, 15);
             DataGridViewBorrowedBooks.Name = "DataGridViewBorrowedBooks";
             DataGridViewBorrowedBooks.RowHeadersWidth = 51;
             DataGridViewBorrowedBooks.RowTemplate.Height = 29;
-            DataGridViewBorrowedBooks.Size = new System.Drawing.Size(945, 576);
+            DataGridViewBorrowedBooks.Size = new System.Drawing.Size(925, 626);
             DataGridViewBorrowedBooks.TabIndex = 5;
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(label10);
+            groupBox2.Controls.Add(StudentYearLabel);
             groupBox2.Controls.Add(label11);
-            groupBox2.Controls.Add(label4);
-            groupBox2.Controls.Add(label5);
-            groupBox2.Controls.Add(label9);
+            groupBox2.Controls.Add(StudentFirstNameLabel);
+            groupBox2.Controls.Add(StudentDepartmentLabel);
+            groupBox2.Controls.Add(StudentLastNameLabel);
             groupBox2.Controls.Add(label12);
             groupBox2.Controls.Add(label13);
             groupBox2.Controls.Add(label14);
-            groupBox2.Location = new System.Drawing.Point(7, 358);
+            groupBox2.Location = new System.Drawing.Point(4, 446);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new System.Drawing.Size(392, 180);
+            groupBox2.Size = new System.Drawing.Size(392, 195);
             groupBox2.TabIndex = 4;
             groupBox2.TabStop = false;
             groupBox2.Text = "Student Info";
             // 
-            // label10
+            // StudentYearLabel
             // 
-            label10.AutoSize = true;
-            label10.Location = new System.Drawing.Point(130, 140);
-            label10.Name = "label10";
-            label10.Size = new System.Drawing.Size(48, 17);
-            label10.TabIndex = 22;
-            label10.Text = "Year";
-            label10.Visible = false;
+            StudentYearLabel.AutoSize = true;
+            StudentYearLabel.Location = new System.Drawing.Point(128, 140);
+            StudentYearLabel.Name = "StudentYearLabel";
+            StudentYearLabel.Size = new System.Drawing.Size(48, 17);
+            StudentYearLabel.TabIndex = 22;
+            StudentYearLabel.Text = "Year";
+            StudentYearLabel.Visible = false;
             // 
             // label11
             // 
@@ -199,35 +218,35 @@
             label11.TabIndex = 21;
             label11.Text = "Year:";
             // 
-            // label4
+            // StudentFirstNameLabel
             // 
-            label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(130, 46);
-            label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(108, 17);
-            label4.TabIndex = 20;
-            label4.Text = "First Name";
-            label4.Visible = false;
+            StudentFirstNameLabel.AutoSize = true;
+            StudentFirstNameLabel.Location = new System.Drawing.Point(128, 46);
+            StudentFirstNameLabel.Name = "StudentFirstNameLabel";
+            StudentFirstNameLabel.Size = new System.Drawing.Size(108, 17);
+            StudentFirstNameLabel.TabIndex = 20;
+            StudentFirstNameLabel.Text = "First Name";
+            StudentFirstNameLabel.Visible = false;
             // 
-            // label5
+            // StudentDepartmentLabel
             // 
-            label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(130, 107);
-            label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(108, 17);
-            label5.TabIndex = 19;
-            label5.Text = "Department";
-            label5.Visible = false;
+            StudentDepartmentLabel.AutoSize = true;
+            StudentDepartmentLabel.Location = new System.Drawing.Point(128, 107);
+            StudentDepartmentLabel.Name = "StudentDepartmentLabel";
+            StudentDepartmentLabel.Size = new System.Drawing.Size(108, 17);
+            StudentDepartmentLabel.TabIndex = 19;
+            StudentDepartmentLabel.Text = "Department";
+            StudentDepartmentLabel.Visible = false;
             // 
-            // label9
+            // StudentLastNameLabel
             // 
-            label9.AutoSize = true;
-            label9.Location = new System.Drawing.Point(130, 76);
-            label9.Name = "label9";
-            label9.Size = new System.Drawing.Size(98, 17);
-            label9.TabIndex = 18;
-            label9.Text = "Last Name";
-            label9.Visible = false;
+            StudentLastNameLabel.AutoSize = true;
+            StudentLastNameLabel.Location = new System.Drawing.Point(128, 76);
+            StudentLastNameLabel.Name = "StudentLastNameLabel";
+            StudentLastNameLabel.Size = new System.Drawing.Size(98, 17);
+            StudentLastNameLabel.TabIndex = 18;
+            StudentLastNameLabel.Text = "Last Name";
+            StudentLastNameLabel.Visible = false;
             // 
             // label12
             // 
@@ -266,9 +285,9 @@
             groupBox1.Controls.Add(label7);
             groupBox1.Controls.Add(label6);
             groupBox1.Controls.Add(label2);
-            groupBox1.Location = new System.Drawing.Point(4, 167);
+            groupBox1.Location = new System.Drawing.Point(4, 237);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new System.Drawing.Size(392, 185);
+            groupBox1.Size = new System.Drawing.Size(392, 203);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Book Info";
@@ -276,7 +295,7 @@
             // BookTitleLabel
             // 
             BookTitleLabel.AutoSize = true;
-            BookTitleLabel.Location = new System.Drawing.Point(133, 50);
+            BookTitleLabel.Location = new System.Drawing.Point(131, 50);
             BookTitleLabel.Name = "BookTitleLabel";
             BookTitleLabel.Size = new System.Drawing.Size(58, 17);
             BookTitleLabel.TabIndex = 12;
@@ -286,7 +305,7 @@
             // BookCategoryLabel
             // 
             BookCategoryLabel.AutoSize = true;
-            BookCategoryLabel.Location = new System.Drawing.Point(133, 111);
+            BookCategoryLabel.Location = new System.Drawing.Point(131, 111);
             BookCategoryLabel.Name = "BookCategoryLabel";
             BookCategoryLabel.Size = new System.Drawing.Size(88, 17);
             BookCategoryLabel.TabIndex = 11;
@@ -296,7 +315,7 @@
             // BookAuthorLabel
             // 
             BookAuthorLabel.AutoSize = true;
-            BookAuthorLabel.Location = new System.Drawing.Point(133, 80);
+            BookAuthorLabel.Location = new System.Drawing.Point(131, 80);
             BookAuthorLabel.Name = "BookAuthorLabel";
             BookAuthorLabel.Size = new System.Drawing.Size(68, 17);
             BookAuthorLabel.TabIndex = 10;
@@ -306,7 +325,7 @@
             // StockLabel
             // 
             StockLabel.AutoSize = true;
-            StockLabel.Location = new System.Drawing.Point(133, 141);
+            StockLabel.Location = new System.Drawing.Point(131, 141);
             StockLabel.Name = "StockLabel";
             StockLabel.Size = new System.Drawing.Size(18, 17);
             StockLabel.TabIndex = 9;
@@ -349,70 +368,66 @@
             label2.TabIndex = 2;
             label2.Text = "Title:";
             // 
-            // tabPage2
+            // tabPage3
             // 
-            tabPage2.Controls.Add(DataGridViewBooks);
-            tabPage2.Location = new System.Drawing.Point(4, 27);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            tabPage2.Size = new System.Drawing.Size(1355, 597);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "Books";
-            tabPage2.UseVisualStyleBackColor = true;
+            tabPage3.Controls.Add(DataGridViewBooks);
+            tabPage3.Location = new System.Drawing.Point(4, 27);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            tabPage3.Size = new System.Drawing.Size(1335, 647);
+            tabPage3.TabIndex = 1;
+            tabPage3.Text = "Books";
+            tabPage3.UseVisualStyleBackColor = true;
             // 
             // DataGridViewBooks
             // 
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            DataGridViewBooks.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             DataGridViewBooks.BackgroundColor = System.Drawing.SystemColors.Control;
             DataGridViewBooks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Lucida Console", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            DataGridViewBooks.DefaultCellStyle = dataGridViewCellStyle2;
-            DataGridViewBooks.Location = new System.Drawing.Point(404, 15);
+            DataGridViewBooks.Location = new System.Drawing.Point(403, 15);
             DataGridViewBooks.Name = "DataGridViewBooks";
+            DataGridViewBooks.ReadOnly = true;
             DataGridViewBooks.RowHeadersWidth = 51;
             DataGridViewBooks.RowTemplate.Height = 29;
-            DataGridViewBooks.Size = new System.Drawing.Size(945, 576);
+            DataGridViewBooks.Size = new System.Drawing.Size(925, 625);
             DataGridViewBooks.TabIndex = 6;
             // 
-            // tabPage3
+            // tabPage4
             // 
-            tabPage3.Controls.Add(DataGridViewStudents);
-            tabPage3.Location = new System.Drawing.Point(4, 27);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Size = new System.Drawing.Size(1355, 597);
-            tabPage3.TabIndex = 2;
-            tabPage3.Text = "Students";
-            tabPage3.UseVisualStyleBackColor = true;
+            tabPage4.Controls.Add(DataGridViewStudents);
+            tabPage4.Location = new System.Drawing.Point(4, 27);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Size = new System.Drawing.Size(1335, 647);
+            tabPage4.TabIndex = 2;
+            tabPage4.Text = "Students";
+            tabPage4.UseVisualStyleBackColor = true;
             // 
             // DataGridViewStudents
             // 
             DataGridViewStudents.BackgroundColor = System.Drawing.SystemColors.Control;
             DataGridViewStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Lucida Console", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            DataGridViewStudents.DefaultCellStyle = dataGridViewCellStyle3;
             DataGridViewStudents.Location = new System.Drawing.Point(403, 15);
             DataGridViewStudents.Name = "DataGridViewStudents";
             DataGridViewStudents.RowHeadersWidth = 51;
             DataGridViewStudents.RowTemplate.Height = 29;
-            DataGridViewStudents.Size = new System.Drawing.Size(945, 576);
+            DataGridViewStudents.Size = new System.Drawing.Size(925, 625);
             DataGridViewStudents.TabIndex = 7;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Location = new System.Drawing.Point(4, 27);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Size = new System.Drawing.Size(1335, 647);
+            tabPage2.TabIndex = 3;
+            tabPage2.Text = "Return";
+            tabPage2.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1382, 653);
+            ClientSize = new System.Drawing.Size(1347, 703);
             Controls.Add(tabControl1);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -428,9 +443,9 @@
             groupBox2.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)DataGridViewBooks).EndInit();
             tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)DataGridViewBooks).EndInit();
+            tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)DataGridViewStudents).EndInit();
             ResumeLayout(false);
         }
@@ -439,8 +454,8 @@
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox BookIdTextBox;
         private System.Windows.Forms.Label label2;
@@ -457,15 +472,18 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox StudentIdTextBox;
+        private System.Windows.Forms.Label StudentFirstNameLabel;
+        private System.Windows.Forms.Label StudentDepartmentLabel;
+        private System.Windows.Forms.Label StudentLastNameLabel;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label StudentYearLabel;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DataGridView DataGridViewStudents;
+        private System.Windows.Forms.Button LendBookButton;
+        private System.Windows.Forms.Button DashboardClearButton;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
