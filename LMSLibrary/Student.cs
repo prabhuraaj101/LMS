@@ -20,6 +20,10 @@ public class Student
 
     public int Year { get; set; }
 
+    public int Borrowed { get; set; }
+
+    public DateTime LastBorrowed { get; set; }
+
     public static List<Student> GetStudentsFromDB()
     {
         List<Student> students = new();
@@ -73,5 +77,21 @@ public class Student
             }
         }
         return student;
+    }
+
+    public static void AddStudentToDB(string id, string firstName, string lastName, string department, int year)
+    {
+        using SqlConnection connection = DBConnection.GetConnection();
+        connection.Open();
+
+        string query = "INSERT INTO Students (StudentId, FirstName, LastName, Department, Year) VALUES (@id, @firstName, @lastName, @department, @year)";
+        using SqlCommand command = new(query, connection);
+        command.Parameters.AddWithValue("@id", id);
+        command.Parameters.AddWithValue("@firstName", firstName);
+        command.Parameters.AddWithValue("@lastName", lastName);
+        command.Parameters.AddWithValue("@department", department);
+        command.Parameters.AddWithValue("@year", year);
+
+        command.ExecuteNonQuery();
     }
 }

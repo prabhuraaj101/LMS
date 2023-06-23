@@ -4,7 +4,7 @@ namespace LMSLibrary;
 
 public static class DBConnection
 {
-    private static readonly string connectionString = "Data Source=DESKTOP-AAR2G77\\SQLEXPRESS;Initial Catalog=lmsDB;Integrated Security=True";
+    private static readonly string connectionString = "Data Source=DESKTOP-6F1MDD5\\SQLEXPRESS;Initial Catalog=lmsDB;Integrated Security=True";
 
     public static SqlConnection GetConnection()
     {

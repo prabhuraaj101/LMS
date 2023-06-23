@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -73,7 +74,7 @@ public class Book
         }
         return book;
     }
-    
+
     public static void UpdateBookStock(string bookId, int stock)
     {
         using SqlConnection connection = DBConnection.GetConnection();
@@ -85,10 +86,83 @@ public class Book
         command.Parameters.AddWithValue("@bookId", bookId);
         command.ExecuteNonQuery();
     }
+
+    public static bool AddBookToDB(string id, string title, string author, string category, int stock)
+    {
+        bool newBookAdded = false;
+
+        using (SqlConnection connection = DBConnection.GetConnection())
+        {
+            connection.Open();
+
+            string checkTitleQuery = "SELECT COUNT(*) FROM Books WHERE Title = @title";
+            using SqlCommand checkTitleCommand = new(checkTitleQuery, connection);
+            checkTitleCommand.Parameters.AddWithValue("@title", title);
+            int titleCount = (int)checkTitleCommand.ExecuteScalar();
+
+            if (titleCount > 0)
+            {
+                string updateStockQuery = "UPDATE Books SET Stock = Stock + @stock WHERE Title = @title";
+                using SqlCommand updateStockCommand = new(updateStockQuery, connection);
+                updateStockCommand.Parameters.AddWithValue("@stock", stock);
+                updateStockCommand.Parameters.AddWithValue("@title", title);
+                updateStockCommand.ExecuteNonQuery();
+            }
+            else
+            {
+                string query = "INSERT INTO Books (Id, Title, Author, Category, Stock) VALUES (@id, @title, @author, @category, @stock)";
+                using SqlCommand command = new(query, connection);
+                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@title", title);
+                command.Parameters.AddWithValue("@author", author);
+                command.Parameters.AddWithValue("@category", category);
+                command.Parameters.AddWithValue("@stock", stock);
+
+                command.ExecuteNonQuery();
+                newBookAdded = true;
+            }
+        }
+
+        return newBookAdded;
+    }
+
+    public static void UpdateBookInDB(string id, string title, string author, string category, int stock)
+    {
+        using (SqlConnection connection = DBConnection.GetConnection())
+        {
+            connection.Open();
+
+            string query = "UPDATE Books SET Title = @title, Author = @author, Category = @category, Stock = @stock WHERE Id = @id";
+            using SqlCommand command = new(query, connection);
+            command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@title", title);
+            command.Parameters.AddWithValue("@author", author);
+            command.Parameters.AddWithValue("@category", category);
+            command.Parameters.AddWithValue("@stock", stock);
+
+            command.ExecuteNonQuery();
+        }
+    }
+
+    public static void DeleteBookFromDB(string id)
+    {
+        using (SqlConnection connection = DBConnection.GetConnection())
+        {
+            connection.Open();
+
+            string query = "DELETE FROM Books WHERE Id = @id";
+            using SqlCommand command = new(query, connection);
+            command.Parameters.AddWithValue("@id", id);
+
+            command.ExecuteNonQuery();
+        }
+    }
 }
 
 public class BorrowedBooks
 {
+    public int BorrowId { get; set; }
+
     public string? BookId { get; set; }
 
     public string? StudentId { get; set; }
@@ -119,13 +193,14 @@ public class BorrowedBooks
             {
                 BorrowedBooks borrowedBook = new()
                 {
-                    BookId = reader.GetString(1),
-                    StudentId = reader.GetString(2),
-                    FirstName = reader.GetString(3),
-                    LastName = reader.GetString(4),
-                    Department = reader.GetString(5),
-                    Year = reader.GetInt32(6),
-                    Date = reader.GetDateTime(7)
+                    BorrowId = reader.GetInt32(0),
+                    BookId = reader.IsDBNull(1) ? null : reader.GetString(1),
+                    StudentId = reader.IsDBNull(2) ? null : reader.GetString(2),
+                    FirstName = reader.IsDBNull(3) ? null : reader.GetString(3),
+                    LastName = reader.IsDBNull(4) ? null : reader.GetString(4),
+                    Department = reader.IsDBNull(5) ? null : reader.GetString(5),
+                    Year = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
+                    Date = reader.IsDBNull(7) ? DateTime.MinValue : reader.GetDateTime(7)
                 };
                 borrowedBooks.Add(borrowedBook);
             }
@@ -133,21 +208,65 @@ public class BorrowedBooks
         return borrowedBooks;
     }
 
+    public static int RecordBorrowedBookToDB(string bookId, string studentId, string firstName, string lastName, string department, int year)
+    {
+        int borrowId = 0;
+        using (SqlConnection connection = DBConnection.GetConnection())
+        {
+            connection.Open();
 
-    public static void RecordBorrowedBookToDB(string bookId, string studentId, string firstName, string lastName, string department, int year)
+            string query = "INSERT INTO BorrowedBooks (BookId, StudentId, FirstName, LastName, Department, Year, Date) OUTPUT INSERTED.BorrowId VALUES (@bookId, @studentId, @firstName, @lastName, @department, @year, @date)";
+            using SqlCommand command = new(query, connection);
+            command.Parameters.AddWithValue("@bookId", bookId);
+            command.Parameters.AddWithValue("@studentId", studentId);
+            command.Parameters.AddWithValue("@firstName", firstName);
+            command.Parameters.AddWithValue("@lastName", lastName);
+            command.Parameters.AddWithValue("@department", department);
+            command.Parameters.AddWithValue("@year", year);
+
+            command.Parameters.AddWithValue("@date", DateTime.Now);
+
+            borrowId = (int)command.ExecuteScalar();
+        }
+        return borrowId;
+    }
+
+    public static void DeleteBorrowedBookFromDB(int borrowId)
     {
         using SqlConnection connection = DBConnection.GetConnection();
         connection.Open();
-
-        var query = "INSERT INTO BorrowedBooks (BookId, StudentId, FirstName, LastName, Department, Year, Date) VALUES (@bookId, @studentId, @firstName, @lastName, @department, @year, @date)";
-        using SqlCommand command = new(query, connection);
-        command.Parameters.AddWithValue("@bookId", bookId);
-        command.Parameters.AddWithValue("@studentId", studentId);
-        command.Parameters.AddWithValue("@firstName", firstName);
-        command.Parameters.AddWithValue("@lastName", lastName);
-        command.Parameters.AddWithValue("@department", department);
-        command.Parameters.AddWithValue("@year", year);
-        command.Parameters.AddWithValue("@date", DateTime.Now);
+        using SqlCommand command = new("DELETE FROM BorrowedBooks WHERE BorrowId = @BorrowId", connection);
+        command.Parameters.AddWithValue("@BorrowId", borrowId);
         command.ExecuteNonQuery();
+    }
+
+    public static BorrowedBooks GetBorrowedBookFromDB(int borrowId)
+    {
+        BorrowedBooks borrowedBook = null;
+
+        using (SqlConnection connection = DBConnection.GetConnection())
+        {
+            connection.Open();
+
+            string query = "SELECT * FROM BorrowedBooks WHERE BorrowId = @borrowId";
+            using SqlCommand command = new(query, connection);
+            command.Parameters.AddWithValue("@borrowId", borrowId);
+            using SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                borrowedBook = new BorrowedBooks
+                {
+                    BorrowId = reader.GetInt32(0),
+                    BookId = reader.IsDBNull(1) ? null : reader.GetString(1),
+                    StudentId = reader.IsDBNull(2) ? null : reader.GetString(2),
+                    FirstName = reader.IsDBNull(3) ? null : reader.GetString(3),
+                    LastName = reader.IsDBNull(4) ? null : reader.GetString(4),
+                    Department = reader.IsDBNull(5) ? null : reader.GetString(5),
+                    Year = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
+                    Date = reader.IsDBNull(7) ? DateTime.MinValue : reader.GetDateTime(7)
+                };
+            }
+        }
+        return borrowedBook;
     }
 }
